@@ -1,22 +1,6 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-
-from app.api import ai
+from app.api.upload import router as upload_router
 
 app = FastAPI()
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
-# 라우터
-app.include_router(ai.router)
-
-@app.get("/")
-def health_check():
-    return {
-        "status": "AI Server Running"
-    }
+app.include_router(upload_router)
